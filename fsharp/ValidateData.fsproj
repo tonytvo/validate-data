@@ -8,6 +8,7 @@
     <ItemGroup>
       <Compile Include="helloworld.fs" />
       <Compile Include="ValidateRuleTest.fs" />
+      <Content Include="todo.md" />
     </ItemGroup>
 
     <ItemGroup>
