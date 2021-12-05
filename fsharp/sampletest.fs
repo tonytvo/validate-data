@@ -4,8 +4,8 @@ open NUnit.Framework
 open FsUnit
 
 [<TestFixture>]
-type ``sample test fixture`` () =
-    
+type ``test validating even number`` () =
     [<Test>]  
-    member _.``sample testcase``() =
-        true |> should be False
+    member _.``given even number should return true``() =
+        let validateEven number = true
+        validateEven(2) |> should be False
