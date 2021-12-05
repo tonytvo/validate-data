@@ -5,7 +5,12 @@ open FsUnit
 
 [<TestFixture>]
 type ``test validating even number`` () =
+    let validateEven number = number % 2 = 0
+    
     [<Test>]  
     member _.``given even number should return true``() =
-        let validateEven number = true
-        validateEven(2) |> should be False
+        validateEven(2) |> should be True
+
+    [<Test>]  
+    member _.``given odd number should return false``() =
+        validateEven(3) |> should be False
