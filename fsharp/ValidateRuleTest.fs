@@ -6,6 +6,7 @@ open FsUnit
 let validateEven number = number % 2 = 0
 let validatePositive number = number >= 0
 let validateNegative number = not <| validatePositive number
+let validateOdd number = not <| validateEven(number)
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -20,8 +21,7 @@ type ``test validating even number`` () =
 
 [<TestFixture>]
 type ``test validating odd number`` () =
-    let validateOdd number = not <| validateEven(number)
-    
+
     [<Test>]  
     member _.``given odd number should return true``() =
         validateOdd(3) |> should be True
@@ -67,3 +67,19 @@ type ``test validating even negative number`` () =
     [<Test>]  
     member _.``given even and positive number should return false``() =
         validateEvenAndNegative(4) |> should be False
+
+[<TestFixture>]
+type ``test validating odd positive number`` () =
+    let validateOddAndPositive number = validateOdd number && validatePositive number 
+    
+    [<Test>]  
+    member _.``given odd and positive number should return true``() =
+        validateOddAndPositive(3) |> should be True
+
+    [<Test>]  
+    member _.``given odd and negative number should return false``() =
+        validateOddAndPositive(-3) |> should be False
+
+    [<Test>]  
+    member _.``given even and negative number should return false``() =
+        validateOddAndPositive(-4) |> should be False
