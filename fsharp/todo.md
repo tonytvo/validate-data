@@ -1,4 +1,5 @@
-- implement validatePositive, validateNegative with same interface
+- ~~Implement validateEven() to return true/false depending on where the argument is even~~
+- ~~implement validateOdd(), validatePositive, validateNegative with same interface~~
 - implement validateEvenAndNegative. In this case, how do we know which condition failed? Refactor to introduce a "Failure Reason", which indicates which condition failed. If both conditions failed, then the failure has 2 failure reasons
 - implement validatePositiveOrZero(), with the same comments as in the previous step.
   - (hint: this can only fail with 2 reasons, because both conditions must fail, due to "or")
@@ -10,3 +11,6 @@
 - when you're factoring, think about the composite design pattern or the specification pattern
 - incorporate the advice of "Alexis King's article" [Parse, Don't Validate](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/) into the validator
 - try not to use Specific pattern implementation, but do pay attention carefully to duplication as it emerges. Where does the design try to go?
+
+## Questions
+- what's the difference between |> and <| in fsharp?
