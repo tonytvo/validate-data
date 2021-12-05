@@ -1,4 +1,4 @@
-module SampleHelloWorld.UnitTest
+module ValidateRule.UnitTest
 
 open NUnit.Framework
 open FsUnit

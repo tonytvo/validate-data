@@ -7,7 +7,7 @@
 
     <ItemGroup>
       <Compile Include="helloworld.fs" />
-      <Compile Include="sampletest.fs" />
+      <Compile Include="ValidateRuleTest.fs" />
     </ItemGroup>
 
     <ItemGroup>
