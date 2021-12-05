@@ -3,9 +3,10 @@ module SampleHelloWorld.UnitTest
 open NUnit.Framework
 open FsUnit
 
+let validateEven number = number % 2 = 0
+
 [<TestFixture>]
 type ``test validating even number`` () =
-    let validateEven number = number % 2 = 0
     
     [<Test>]  
     member _.``given even number should return true``() =
@@ -17,8 +18,12 @@ type ``test validating even number`` () =
 
 [<TestFixture>]
 type ``test validating odd number`` () =
-    let validateOdd number = false
+    let validateOdd number = not <| validateEven(number)
     
     [<Test>]  
     member _.``given odd number should return true``() =
         validateOdd(3) |> should be True
+
+    [<Test>]  
+    member _.``given even number should return false``() =
+        validateOdd(2) |> should be False
