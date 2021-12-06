@@ -30,7 +30,8 @@ let isZero number = number = 0
 let validateZero number =
     createValidationResultOnPredicate (isZero(number)) $"{number} is not zero"
 
-let validatePositiveOrZero number = orCombine (validatePositive(number)) (validateZero(number))
+let (<|>) f g = (fun x -> orCombine (f(x)) (g(x)))
+let validatePositiveOrZero = validatePositive <|> validateZero
 
 [<TestFixture>]
 type ``test validating zero`` () =
