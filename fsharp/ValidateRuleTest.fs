@@ -21,6 +21,7 @@ let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative number = value (combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number)))
+let validateEvenAndNegativeWithErrorMessage number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -75,7 +76,7 @@ type ``test validating even negative number`` () =
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateEvenAndNegative(-1) |> should be False
+        validateEvenAndNegativeWithErrorMessage(-1) |> should equal (InvalidResult "is not valid and combinator")
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
