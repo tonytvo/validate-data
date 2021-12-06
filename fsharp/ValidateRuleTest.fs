@@ -11,6 +11,11 @@ let validateEven number = value (validateEvenWithErrorMessage(number))
 let validatePositiveWithErrorMessage number = create (number >= 0)
 let validatePositive number = value (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
+let validateNegativeWithErrorMessage number =
+    if validateNegative number
+    then create true
+    else createWithErrorMessage $"{number} is not negative number"
+    
 let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
@@ -57,8 +62,8 @@ type ``test validating negative number`` () =
         validateNegative(-2) |> should be True
 
     [<Test>]  
-    member _.``given non-negative number should return false``() =
-        validateNegative(3) |> should be False
+    member _.``given non-negative number should return false with error message``() =
+        validateNegativeWithErrorMessage(3) |> should equal (InvalidResult "3 is not negative number")
 
 [<TestFixture>]
 type ``test validating even negative number`` () =
