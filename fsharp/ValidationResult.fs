@@ -1,6 +1,12 @@
 module ValidationResult
-    type T = ValidationResult of bool
+    type T =
+        | ValidResult of bool
+        | InvalidResult of string
     
-    let create (result:bool) = (ValidationResult result) 
+    let create (result:bool) = ValidResult result
+    let createWithErrorMessage (errorMessage: string) = InvalidResult errorMessage 
     
-    let value (ValidationResult result) = result;
+    let value result =
+        match result with
+        | ValidResult result -> result
+        | InvalidResult _ -> false

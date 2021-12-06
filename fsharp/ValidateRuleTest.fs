@@ -4,7 +4,9 @@ open NUnit.Framework
 open FsUnit
 open ValidationResult
 
-let validateEvenWithErrorMessage number = create (number % 2 = 0)
+let validateEvenWithErrorMessage number =
+    let isEven = number % 2 = 0
+    if isEven then create true else createWithErrorMessage $"{number} is not even number"
 
 let validateEven number = value (validateEvenWithErrorMessage(number))
 let validatePositiveWithErrorMessage number = create (number >= 0)
@@ -23,8 +25,8 @@ type ``test validating even number`` () =
         validateEvenWithErrorMessage(2) |> should equal (create true)
 
     [<Test>]  
-    member _.``given odd number should return false``() =
-        validateEvenWithErrorMessage(3) |> should equal (create false)
+    member _.``given odd number should return false with error message``() =
+        validateEvenWithErrorMessage(3) |> should equal (InvalidResult "3 is not even number")
 
 [<TestFixture>]
 type ``test validating odd number`` () =
