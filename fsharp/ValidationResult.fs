@@ -20,3 +20,13 @@ module ValidationResult
         match result with
         | InvalidResult results -> results
         | _ -> failwith "todo"
+
+    let aggregateErrors leftPredicate rightPredicate =
+        let errorMessages = 
+            [leftPredicate; rightPredicate]
+            |> List.filter (fun x -> not <| isValid x)
+            |> List.collect errorMessageFromInvalidResult
+        InvalidResult errorMessages
+
+    let createValidationResultFromMultipleValidationResults isValid validationResult1 validationResult2 =
+        if (isValid) then createValidResult else aggregateErrors validationResult1 validationResult2
