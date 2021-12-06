@@ -8,7 +8,11 @@ open AndCombinator
 let validateEven number =
     if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
 
-let validatePositiveWithErrorMessage number = create (number >= 0)
+let validatePositiveWithErrorMessage number =
+    if (number >= 0)
+    then create true
+    else createWithErrorMessage $"{number} is not positive number"
+
 let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
 let validateNegativeWithErrorMessage number =
@@ -52,7 +56,7 @@ type ``test validating positive number`` () =
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositiveWithErrorMessage(-2) |> should equal (create false)
+        validatePositiveWithErrorMessage(-2) |> should equal (InvalidResult "-2 is not positive number")
 
 [<TestFixture>]
 type ``test validating negative number`` () =
