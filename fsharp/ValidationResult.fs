@@ -4,12 +4,12 @@ module ValidationResult
         | InvalidResult of string
         | MultipleInvalidResults of string list
     
-    let create (result:bool) = ValidResult result
+    let createValidResult (result:bool) = ValidResult result
     let createWithErrorMessage (errorMessage: string) = InvalidResult errorMessage 
     
     let createValidationResultOnPredicate predicate errorMessage =
         if predicate
-        then create true
+        then createValidResult true
         else createWithErrorMessage errorMessage
     
     let booleanValue result =
