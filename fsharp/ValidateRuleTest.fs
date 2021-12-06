@@ -32,7 +32,7 @@ type ``test validating even number`` () =
     
     [<Test>]  
     member _.``given even number should return true``() =
-        validateEven(2) |> should equal (createValidResult true)
+        validateEven(2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
@@ -54,7 +54,7 @@ type ``test validating positive number`` () =
     
     [<Test>]  
     member _.``given positive number should return true``() =
-        validatePositiveWithErrorMessage(3) |> should equal (createValidResult true)
+        validatePositiveWithErrorMessage(3) |> should equal (createValidResult)
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
