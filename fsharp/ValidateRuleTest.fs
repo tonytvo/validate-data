@@ -19,7 +19,7 @@ type ``test validating even number`` () =
     
     [<Test>]  
     member _.``given even number should return true``() =
-        validateEven(2) |> should be True
+        validateEvenWithErrorMessage(2) |> should equal (create true)
 
     [<Test>]  
     member _.``given odd number should return false``() =
