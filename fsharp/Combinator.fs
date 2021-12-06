@@ -8,6 +8,6 @@ module Combinator
             |> List.map (fun x -> errorMessage x) 
         MultipleInvalidResults errorMessages
 
-    let combine leftPredicate rightPredicate =
+    let andCombine leftPredicate rightPredicate =
         let isValid = booleanValue leftPredicate && booleanValue rightPredicate
         if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
