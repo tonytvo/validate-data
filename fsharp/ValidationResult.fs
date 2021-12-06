@@ -18,7 +18,7 @@ module ValidationResult
         | SingleInvalidResult _ -> false
         | MultipleInvalidResults _ -> false
 
-    let errorMessage result =
+    let errorMessageFromSingleInvalidResult result =
         match result with
         | SingleInvalidResult result -> result
         | _ -> failwith "todo"
