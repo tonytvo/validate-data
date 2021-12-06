@@ -5,7 +5,7 @@ module Combinator
         let errorMessages = 
             [leftPredicate; rightPredicate]
             |> List.filter (fun x -> not <| isValid x)
-            |> List.map (fun x -> errorMessageFromSingleInvalidResult x) 
+            |> List.map errorMessageFromSingleInvalidResult 
         MultipleInvalidResults errorMessages
 
     let andCombine leftPredicate rightPredicate =
