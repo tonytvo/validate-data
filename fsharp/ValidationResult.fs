@@ -11,3 +11,9 @@ module ValidationResult
         match result with
         | ValidResult result -> result
         | InvalidResult _ -> false
+        | MultipleInvalidResults _ -> false
+
+    let errorMessage result =
+        match result with
+        | InvalidResult result -> result
+        | _ -> failwith "todo"

@@ -76,7 +76,7 @@ type ``test validating even negative number`` () =
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateEvenAndNegativeWithErrorMessage(-1) |> should equal (InvalidResult "is not valid and combinator")
+        validateEvenAndNegativeWithErrorMessage(-1) |> should equal (MultipleInvalidResults ["-1 is not even number"])
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
