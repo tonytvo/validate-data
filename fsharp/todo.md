@@ -17,3 +17,4 @@
 - what's the difference between |> and <| in fsharp?
 - how to aggregate validationresult?
 - how to not validationresult?
+- when to add paren around function/type?
