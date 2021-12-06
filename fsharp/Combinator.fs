@@ -1,4 +1,4 @@
-module AndCombinator
+module Combinator
     open ValidationResult
     
     let aggregateErrors leftPredicate rightPredicate =

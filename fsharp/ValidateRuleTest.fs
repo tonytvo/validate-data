@@ -3,7 +3,7 @@ module ValidateRule.UnitTest
 open NUnit.Framework
 open FsUnit
 open ValidationResult
-open AndCombinator
+open Combinator
 
 let isEven number = number % 2 = 0
 

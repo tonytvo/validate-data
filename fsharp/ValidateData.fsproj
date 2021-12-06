@@ -7,7 +7,7 @@
 
     <ItemGroup>
       <Compile Include="ValidationResult.fs" />
-      <Compile Include="AndCombinator.fs" />
+      <Compile Include="Combinator.fs" />
       <Compile Include="ValidateRuleTest.fs" />
       <Content Include="todo.md" />
     </ItemGroup>
