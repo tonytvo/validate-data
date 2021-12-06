@@ -10,8 +10,10 @@ let isEven number = number % 2 = 0
 let validateEven number =
     createValidationResultOnPredicate (isEven(number)) $"{number} is not even number"
 
+let isPositive number = number >= 0 
+
 let validatePositiveWithErrorMessage number =
-    if (number >= 0)
+    if isPositive(number)
     then create true
     else createWithErrorMessage $"{number} is not positive number"
 
