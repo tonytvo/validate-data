@@ -5,11 +5,6 @@ open FsUnit
 open ValidationResult
 open AndCombinator
 
-let createValidationResultOnPredicate predicate errorMessage =
-    if predicate
-    then create true
-    else createWithErrorMessage errorMessage
-
 let isEven number = number % 2 = 0
 
 let validateEven number =

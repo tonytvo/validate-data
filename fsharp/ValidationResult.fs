@@ -7,6 +7,11 @@ module ValidationResult
     let create (result:bool) = ValidResult result
     let createWithErrorMessage (errorMessage: string) = InvalidResult errorMessage 
     
+    let createValidationResultOnPredicate predicate errorMessage =
+        if predicate
+        then create true
+        else createWithErrorMessage errorMessage
+    
     let booleanValue result =
         match result with
         | ValidResult result -> result
