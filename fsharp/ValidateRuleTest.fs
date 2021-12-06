@@ -8,7 +8,6 @@ open AndCombinator
 let validateEvenWithErrorMessage number =
     if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
 
-let validateEven number = booleanValue (validateEvenWithErrorMessage(number))
 let validatePositiveWithErrorMessage number = create (number >= 0)
 let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
