@@ -26,7 +26,6 @@ let isOdd number = not <| isEven(number)
 let validateOddWithErrorMessage number =
     createValidationResultOnPredicate (isOdd(number)) $"{number} is not odd number"
 let (<&>) f g = (fun x -> f x && g x)
-let validateOddAndPositive = validateOdd <&> validatePositive
 let validateOddAndPositiveWithErrorMessage number = andCombine (validateOddWithErrorMessage(number)) (validatePositiveWithErrorMessage(number))
 let validateEvenAndNegative number = andCombine (validateEven(number)) (validateNegative(number))
 
