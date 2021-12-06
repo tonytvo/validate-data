@@ -5,12 +5,12 @@ module ValidationResult
         | MultipleInvalidResults of string list
     
     let createValidResult = ValidResult
-    let createWithErrorMessage (errorMessage: string) = SingleInvalidResult errorMessage 
+    let createSingleInvalidResult (errorMessage: string) = SingleInvalidResult errorMessage 
     
     let createValidationResultOnPredicate predicate errorMessage =
         if predicate
         then createValidResult
-        else createWithErrorMessage errorMessage
+        else createSingleInvalidResult errorMessage
     
     let isValid result =
         match result with
