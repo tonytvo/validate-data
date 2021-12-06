@@ -3,6 +3,7 @@ module ValidateRule.UnitTest
 open NUnit.Framework
 open FsUnit
 open ValidationResult
+open AndCombinator
 
 let validateEvenWithErrorMessage number =
     if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
@@ -19,7 +20,7 @@ let validateNegativeWithErrorMessage number =
 let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegative = validateEven <&> validateNegative
+let validateEvenAndNegative number = value (combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number)))
 
 [<TestFixture>]
 type ``test validating even number`` () =
