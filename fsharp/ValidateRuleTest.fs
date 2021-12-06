@@ -20,9 +20,7 @@ let validateNegative number = not <| validatePositive number
 
 let isNegative number = not <| isPositive number
 let validateNegativeWithErrorMessage number =
-    if isNegative number
-    then create true
-    else createWithErrorMessage $"{number} is not negative number"
+    createValidationResultOnPredicate (isNegative(number)) $"{number} is not negative number"
     
 let validateOdd number = not <| booleanValue (validateEven(number))
 let (<&>) f g = (fun x -> f x && g x)
