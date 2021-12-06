@@ -1,10 +1,10 @@
 module ValidationResult
     type T =
         | ValidResult
-        | MultipleInvalidResults of string list
+        | InvalidResult of string list
     
     let createValidResult = ValidResult
-    let createSingleInvalidResult (errorMessage: string) = MultipleInvalidResults [errorMessage] 
+    let createSingleInvalidResult (errorMessage: string) = InvalidResult [errorMessage] 
     
     let createValidationResultOnPredicate predicate errorMessage =
         if predicate
@@ -14,9 +14,9 @@ module ValidationResult
     let isValid result =
         match result with
         | ValidResult -> true
-        | MultipleInvalidResults _ -> false
+        | InvalidResult _ -> false
 
     let errorMessageFromSingleInvalidResult result =
         match result with
-        | MultipleInvalidResults results -> results
+        | InvalidResult results -> results
         | _ -> failwith "todo"

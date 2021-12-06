@@ -6,7 +6,7 @@ module Combinator
             [leftPredicate; rightPredicate]
             |> List.filter (fun x -> not <| isValid x)
             |> List.collect errorMessageFromSingleInvalidResult
-        MultipleInvalidResults errorMessages
+        InvalidResult errorMessages
 
     let andCombine leftPredicate rightPredicate =
         let isValid = isValid leftPredicate && isValid rightPredicate

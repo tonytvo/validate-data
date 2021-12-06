@@ -44,7 +44,7 @@ type ``test validating zero`` () =
 
     [<Test>]  
     member _.``given non-zero number should invalid result with error message``() =
-        validateZero(3) |> should equal (MultipleInvalidResults ["3 is not zero"])
+        validateZero(3) |> should equal (InvalidResult ["3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -55,7 +55,7 @@ type ``test validating even number`` () =
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
-        validateEven(3) |> should equal (MultipleInvalidResults ["3 is not even number"])
+        validateEven(3) |> should equal (InvalidResult ["3 is not even number"])
 
 [<TestFixture>]
 type ``test validating odd number`` () =
@@ -66,7 +66,7 @@ type ``test validating odd number`` () =
         
     [<Test>]  
     member _.``given even number should return false``() =
-        validateOdd(2) |> should equal (MultipleInvalidResults ["2 is not odd number"])
+        validateOdd(2) |> should equal (InvalidResult ["2 is not odd number"])
 
 [<TestFixture>]
 type ``test validating positive number`` () =
@@ -77,7 +77,7 @@ type ``test validating positive number`` () =
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositive(-2) |> should equal (MultipleInvalidResults ["-2 is not positive number"])
+        validatePositive(-2) |> should equal (InvalidResult ["-2 is not positive number"])
 
 [<TestFixture>]
 type ``test validating negative number`` () =
@@ -88,7 +88,7 @@ type ``test validating negative number`` () =
 
     [<Test>]  
     member _.``given non-negative number should return false with error message``() =
-        validateNegative(3) |> should equal (MultipleInvalidResults ["3 is not negative number"])
+        validateNegative(3) |> should equal (InvalidResult ["3 is not negative number"])
 
 [<TestFixture>]
 type ``test validating even negative number`` () =
@@ -99,15 +99,15 @@ type ``test validating even negative number`` () =
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateEvenAndNegative(-1) |> should equal (MultipleInvalidResults ["-1 is not even number"])
+        validateEvenAndNegative(-1) |> should equal (InvalidResult ["-1 is not even number"])
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
-        validateEvenAndNegative(4) |> should equal (MultipleInvalidResults ["4 is not negative number"])
+        validateEvenAndNegative(4) |> should equal (InvalidResult ["4 is not negative number"])
 
     [<Test>]  
     member _.``given odd and positive number should return false with multiple error message``() =
-        validateEvenAndNegative(5) |> should equal (MultipleInvalidResults ["5 is not even number"; "5 is not negative number"])
+        validateEvenAndNegative(5) |> should equal (InvalidResult ["5 is not even number"; "5 is not negative number"])
 
 [<TestFixture>]
 type ``test validating odd positive number`` () =
@@ -118,11 +118,11 @@ type ``test validating odd positive number`` () =
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateOddAndPositive(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"])
+        validateOddAndPositive(-3) |> should equal (InvalidResult ["-3 is not positive number"])
 
     [<Test>]  
     member _.``given even and negative number should return false``() =
-        validateOddAndPositive(-4) |> should equal (MultipleInvalidResults ["-4 is not odd number"; "-4 is not positive number"])
+        validateOddAndPositive(-4) |> should equal (InvalidResult ["-4 is not odd number"; "-4 is not positive number"])
 
 [<TestFixture>]
 type ``test validating positive number or zero`` () =
@@ -137,7 +137,7 @@ type ``test validating positive number or zero`` () =
 
     [<Test>]  
     member _.``given negative number should return false with multiple error messages``() =
-        validatePositiveOrZero(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"; "-3 is not zero"])
+        validatePositiveOrZero(-3) |> should equal (InvalidResult ["-3 is not positive number"; "-3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even and positive or zero`` () =
@@ -150,4 +150,4 @@ type ``test validating even and positive or zero`` () =
 
     [<Test>]  
     member _.``given -2 number should return invalid results with multiple error messages``() =
-        validateEvenAndPositiveOrZero(-2) |> should equal (MultipleInvalidResults ["-2 is not positive number"; "-2 is not zero"])
+        validateEvenAndPositiveOrZero(-2) |> should equal (InvalidResult ["-2 is not positive number"; "-2 is not zero"])
