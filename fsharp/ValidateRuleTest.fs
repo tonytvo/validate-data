@@ -5,7 +5,7 @@ open FsUnit
 open ValidationResult
 open AndCombinator
 
-let validateEvenWithErrorMessage number =
+let validateEven number =
     if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
 
 let validatePositiveWithErrorMessage number = create (number >= 0)
@@ -16,21 +16,21 @@ let validateNegativeWithErrorMessage number =
     then create true
     else createWithErrorMessage $"{number} is not negative number"
     
-let validateOdd number = not <| booleanValue (validateEvenWithErrorMessage(number))
+let validateOdd number = not <| booleanValue (validateEven(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegative number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
+let validateEvenAndNegative number = combine (validateEven(number)) (validateNegativeWithErrorMessage(number))
 
 [<TestFixture>]
 type ``test validating even number`` () =
     
     [<Test>]  
     member _.``given even number should return true``() =
-        validateEvenWithErrorMessage(2) |> should equal (create true)
+        validateEven(2) |> should equal (create true)
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
-        validateEvenWithErrorMessage(3) |> should equal (InvalidResult "3 is not even number")
+        validateEven(3) |> should equal (InvalidResult "3 is not even number")
 
 [<TestFixture>]
 type ``test validating odd number`` () =
