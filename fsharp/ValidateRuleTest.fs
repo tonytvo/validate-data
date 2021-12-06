@@ -25,8 +25,8 @@ let validateOdd number = not <| booleanValue (validateEven(number))
 let isOdd number = not <| isEven(number)
 let validateOddWithErrorMessage number =
     createValidationResultOnPredicate (isOdd(number)) $"{number} is not odd number"
-let (<&>) f g = (fun x -> f x && g x)
-let validateOddAndPositiveWithErrorMessage number = andCombine (validateOddWithErrorMessage(number)) (validatePositiveWithErrorMessage(number))
+let (<&>) f g = (fun x -> andCombine (f(x)) (g(x)))
+let validateOddAndPositiveWithErrorMessage = validateOddWithErrorMessage <&> validatePositiveWithErrorMessage
 let validateEvenAndNegative number = andCombine (validateEven(number)) (validateNegative(number))
 
 [<TestFixture>]
