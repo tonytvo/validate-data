@@ -80,7 +80,11 @@ type ``test validating even negative number`` () =
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
-        validateEvenAndNegative(4) |> should be False
+        validateEvenAndNegativeWithErrorMessage(4) |> should equal (MultipleInvalidResults ["4 is not negative number"])
+
+    [<Test>]  
+    member _.``given odd and positive number should return false with multiple error message``() =
+        validateEvenAndNegativeWithErrorMessage(5) |> should equal (MultipleInvalidResults ["5 is not even number"; "5 is not negative number"])
 
 [<TestFixture>]
 type ``test validating odd positive number`` () =
