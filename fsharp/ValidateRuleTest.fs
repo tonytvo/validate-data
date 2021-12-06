@@ -20,7 +20,7 @@ let validateNegativeWithErrorMessage number =
 let validateOdd number = not <| booleanValue (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegativeWithErrorMessage number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
+let validateEvenAndNegative number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -71,19 +71,19 @@ type ``test validating even negative number`` () =
     
     [<Test>]  
     member _.``given even and negative number should return true``() =
-        validateEvenAndNegativeWithErrorMessage(-2) |> should equal (ValidResult true)
+        validateEvenAndNegative(-2) |> should equal (ValidResult true)
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateEvenAndNegativeWithErrorMessage(-1) |> should equal (MultipleInvalidResults ["-1 is not even number"])
+        validateEvenAndNegative(-1) |> should equal (MultipleInvalidResults ["-1 is not even number"])
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
-        validateEvenAndNegativeWithErrorMessage(4) |> should equal (MultipleInvalidResults ["4 is not negative number"])
+        validateEvenAndNegative(4) |> should equal (MultipleInvalidResults ["4 is not negative number"])
 
     [<Test>]  
     member _.``given odd and positive number should return false with multiple error message``() =
-        validateEvenAndNegativeWithErrorMessage(5) |> should equal (MultipleInvalidResults ["5 is not even number"; "5 is not negative number"])
+        validateEvenAndNegative(5) |> should equal (MultipleInvalidResults ["5 is not even number"; "5 is not negative number"])
 
 [<TestFixture>]
 type ``test validating odd positive number`` () =
