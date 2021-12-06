@@ -10,8 +10,8 @@ module Combinator
 
     let andCombine leftPredicate rightPredicate =
         let isValid = isValid leftPredicate && isValid rightPredicate
-        if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
+        if (isValid) then createValidResult else aggregateErrors leftPredicate rightPredicate
 
     let orCombine leftPredicate rightPredicate =
         let isValid = isValid leftPredicate || isValid rightPredicate
-        if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
+        if (isValid) then createValidResult else aggregateErrors leftPredicate rightPredicate
