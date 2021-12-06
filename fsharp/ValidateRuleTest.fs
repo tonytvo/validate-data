@@ -5,15 +5,15 @@ open FsUnit
 open ValidationResult
 open AndCombinator
 
-let createValidationResultOnPredicate number predicate =
+let createValidationResultOnPredicate number predicate errorMessage =
     if predicate
     then create true
-    else createWithErrorMessage $"{number} is not even number"
+    else createWithErrorMessage errorMessage
 
 let isEven number = number % 2 = 0
 
 let validateEven number =
-    createValidationResultOnPredicate number (isEven(number))
+    createValidationResultOnPredicate number (isEven(number)) $"{number} is not even number"
 
 let validatePositiveWithErrorMessage number =
     if (number >= 0)
