@@ -12,7 +12,7 @@ module ValidationResult
         then createValidResult
         else createWithErrorMessage errorMessage
     
-    let booleanValue result =
+    let isValid result =
         match result with
         | ValidResult result -> result
         | SingleInvalidResult _ -> false

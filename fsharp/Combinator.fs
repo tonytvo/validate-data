@@ -4,14 +4,14 @@ module Combinator
     let aggregateErrors leftPredicate rightPredicate =
         let errorMessages = 
             [leftPredicate; rightPredicate]
-            |> List.filter (fun x -> not <| booleanValue x)
+            |> List.filter (fun x -> not <| isValid x)
             |> List.map (fun x -> errorMessageFromSingleInvalidResult x) 
         MultipleInvalidResults errorMessages
 
     let andCombine leftPredicate rightPredicate =
-        let isValid = booleanValue leftPredicate && booleanValue rightPredicate
+        let isValid = isValid leftPredicate && isValid rightPredicate
         if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
 
     let orCombine leftPredicate rightPredicate =
-        let isValid = booleanValue leftPredicate || booleanValue rightPredicate
+        let isValid = isValid leftPredicate || isValid rightPredicate
         if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
