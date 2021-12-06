@@ -6,7 +6,7 @@ module ValidationResult
     let create (result:bool) = ValidResult result
     let createWithErrorMessage (errorMessage: string) = InvalidResult errorMessage 
     
-    let value result =
+    let booleanValue result =
         match result with
         | ValidResult result -> result
         | InvalidResult _ -> false

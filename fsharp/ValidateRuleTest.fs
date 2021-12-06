@@ -8,19 +8,19 @@ open AndCombinator
 let validateEvenWithErrorMessage number =
     if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
 
-let validateEven number = value (validateEvenWithErrorMessage(number))
+let validateEven number = booleanValue (validateEvenWithErrorMessage(number))
 let validatePositiveWithErrorMessage number = create (number >= 0)
-let validatePositive number = value (validatePositiveWithErrorMessage number)
+let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
 let validateNegativeWithErrorMessage number =
     if validateNegative number
     then create true
     else createWithErrorMessage $"{number} is not negative number"
     
-let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
+let validateOdd number = not <| booleanValue (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegative number = value (combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number)))
+let validateEvenAndNegative number = booleanValue (combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number)))
 let validateEvenAndNegativeWithErrorMessage number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
 
 [<TestFixture>]
