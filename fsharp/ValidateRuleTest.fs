@@ -5,8 +5,10 @@ open FsUnit
 open ValidationResult
 open AndCombinator
 
+let isEven number = number % 2 = 0
+
 let validateEven number =
-    if number % 2 = 0 then create true else createWithErrorMessage $"{number} is not even number"
+    if isEven(number) then create true else createWithErrorMessage $"{number} is not even number"
 
 let validatePositiveWithErrorMessage number =
     if (number >= 0)
