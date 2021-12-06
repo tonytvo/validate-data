@@ -2,8 +2,11 @@ module ValidateRule.UnitTest
 
 open NUnit.Framework
 open FsUnit
+open ValidationResult
 
-let validateEven number = number % 2 = 0
+let validateEvenWithErrorMessage number = create (number % 2 = 0)
+
+let validateEven number = value (validateEvenWithErrorMessage(number))
 let validatePositive number = number >= 0
 let validateNegative number = not <| validatePositive number
 let validateOdd number = not <| validateEven(number)

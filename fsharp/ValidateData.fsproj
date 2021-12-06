@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="helloworld.fs" />
+      <Compile Include="ValidationResult.fs" />
       <Compile Include="ValidateRuleTest.fs" />
       <Content Include="todo.md" />
     </ItemGroup>
