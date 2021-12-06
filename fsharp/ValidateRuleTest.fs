@@ -17,8 +17,10 @@ let validatePositiveWithErrorMessage number =
 
 let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
+
+let isNegative number = not <| isPositive number
 let validateNegativeWithErrorMessage number =
-    if validateNegative number
+    if isNegative number
     then create true
     else createWithErrorMessage $"{number} is not negative number"
     
