@@ -7,6 +7,8 @@ let validateEven number = number % 2 = 0
 let validatePositive number = number >= 0
 let validateNegative number = not <| validatePositive number
 let validateOdd number = not <| validateEven(number)
+let (<&>) f g = (fun x -> f x && g x)
+let validateOddAndPositive = validateOdd <&> validatePositive
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -70,7 +72,6 @@ type ``test validating even negative number`` () =
 
 [<TestFixture>]
 type ``test validating odd positive number`` () =
-    let validateOddAndPositive number = validateOdd number && validatePositive number 
     
     [<Test>]  
     member _.``given odd and positive number should return true``() =
