@@ -11,3 +11,7 @@ module Combinator
     let andCombine leftPredicate rightPredicate =
         let isValid = booleanValue leftPredicate && booleanValue rightPredicate
         if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate
+
+    let orCombine leftPredicate rightPredicate =
+        let isValid = booleanValue leftPredicate || booleanValue rightPredicate
+        if (isValid) then (ValidResult true) else aggregateErrors leftPredicate rightPredicate

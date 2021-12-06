@@ -29,7 +29,8 @@ let validateEvenAndNegative = validateEven <&> validateNegative
 let isZero number = number = 0
 let validateZero number =
     createValidationResultOnPredicate (isZero(number)) $"{number} is not zero"
-//let validatePositiveOrZero = orCombine (validatePositive(number)) (validateZero(number))
+
+let validatePositiveOrZero number = orCombine (validatePositive(number)) (validateZero(number))
 
 [<TestFixture>]
 type ``test validating zero`` () =
@@ -119,3 +120,18 @@ type ``test validating odd positive number`` () =
     [<Test>]  
     member _.``given even and negative number should return false``() =
         validateOddAndPositive(-4) |> should equal (MultipleInvalidResults ["-4 is not odd number"; "-4 is not positive number"])
+
+[<TestFixture>]
+type ``test validating positive number or zero`` () =
+    
+    [<Test>]  
+    member _.``given zero should return valid result``() =
+        validatePositiveOrZero(0) |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given positive number should return valid result``() =
+        validatePositiveOrZero(4) |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given negative number should return false with multiple error messages``() =
+        validatePositiveOrZero(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"; "-3 is not zero"])
