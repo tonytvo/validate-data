@@ -9,7 +9,7 @@ let validateEvenWithErrorMessage number = create (number % 2 = 0)
 let validateEven number = value (validateEvenWithErrorMessage(number))
 let validatePositive number = number >= 0
 let validateNegative number = not <| validatePositive number
-let validateOdd number = not <| validateEven(number)
+let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
@@ -23,7 +23,7 @@ type ``test validating even number`` () =
 
     [<Test>]  
     member _.``given odd number should return false``() =
-        validateEven(3) |> should be False
+        validateEvenWithErrorMessage(3) |> should equal (create false)
 
 [<TestFixture>]
 type ``test validating odd number`` () =
