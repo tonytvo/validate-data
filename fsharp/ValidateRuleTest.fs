@@ -13,9 +13,7 @@ let validateEven number =
 let isPositive number = number >= 0 
 
 let validatePositiveWithErrorMessage number =
-    if isPositive(number)
-    then create true
-    else createWithErrorMessage $"{number} is not positive number"
+    createValidationResultOnPredicate (isPositive(number)) $"{number} is not positive number"
 
 let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
