@@ -15,8 +15,6 @@ let isPositive number = number >= 0
 let validatePositiveWithErrorMessage number =
     createValidationResultOnPredicate (isPositive(number)) $"{number} is not positive number"
 
-let validatePositive number = booleanValue (validatePositiveWithErrorMessage number)
-
 let isNegative number = not <| isPositive number
 let validateNegative number =
     createValidationResultOnPredicate (isNegative(number)) $"{number} is not negative number"
