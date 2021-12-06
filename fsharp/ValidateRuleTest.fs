@@ -42,11 +42,11 @@ type ``test validating positive number`` () =
     
     [<Test>]  
     member _.``given positive number should return true``() =
-        validatePositive(3) |> should be True
+        validatePositiveWithErrorMessage(3) |> should equal (create true)
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositive(-2) |> should be False
+        validatePositiveWithErrorMessage(-2) |> should equal (create false)
 
 [<TestFixture>]
 type ``test validating negative number`` () =
