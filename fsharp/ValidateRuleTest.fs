@@ -7,7 +7,8 @@ open ValidationResult
 let validateEvenWithErrorMessage number = create (number % 2 = 0)
 
 let validateEven number = value (validateEvenWithErrorMessage(number))
-let validatePositive number = number >= 0
+let validatePositiveWithErrorMessage number = create (number >= 0)
+let validatePositive number = value (validatePositiveWithErrorMessage number)
 let validateNegative number = not <| validatePositive number
 let validateOdd number = not <| value (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
