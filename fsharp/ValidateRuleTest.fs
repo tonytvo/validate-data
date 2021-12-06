@@ -21,7 +21,6 @@ let isNegative number = not <| isPositive number
 let validateNegative number =
     createValidationResultOnPredicate (isNegative(number)) $"{number} is not negative number"
     
-let validateOdd number = not <| booleanValue (validateEven(number))
 let isOdd number = not <| isEven(number)
 let validateOddWithErrorMessage number =
     createValidationResultOnPredicate (isOdd(number)) $"{number} is not odd number"
