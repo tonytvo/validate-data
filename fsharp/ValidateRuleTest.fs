@@ -20,7 +20,6 @@ let validateNegativeWithErrorMessage number =
 let validateOdd number = not <| booleanValue (validateEvenWithErrorMessage(number))
 let (<&>) f g = (fun x -> f x && g x)
 let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegative number = booleanValue (combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number)))
 let validateEvenAndNegativeWithErrorMessage number = combine (validateEvenWithErrorMessage(number)) (validateNegativeWithErrorMessage(number))
 
 [<TestFixture>]
