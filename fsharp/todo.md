@@ -1,9 +1,9 @@
 - ~~Implement validateEven() to return true/false depending on where the argument is even~~
 - ~~implement validateOdd(), validatePositive, validateNegative with same interface~~
 - ~~implement validateEvenAndNegative. In this case, how do we know which condition failed? Refactor to introduce a "Failure Reason", which indicates which condition failed. If both conditions failed, then the failure has 2 failure reasons~~
-- implement validatePositiveOrZero(), with the same comments as in the previous step.
+- ~~implement validatePositiveOrZero(), with the same comments as in the previous step.~~
   - (hint: this can only fail with 2 reasons, because both conditions must fail, due to "or")
-- implement validateEvenAndPositiveOrZero(). For example: 0, 2, 4 all pass, but 1, 3, 5 all fail. Also, -2 fails (it is even, but it is not positive-or-zero)
+- ~~implement validateEvenAndPositiveOrZero(). For example: 0, 2, 4 all pass, but 1, 3, 5 all fail. Also, -2 fails (it is even, but it is not positive-or-zero)~~
 - remove duplication before it's too much
 - write validations for strings or some data type. Start from single condition, then combine two conditions, then try to build bigger combinations of coditions.
 - rename validateEvenWithErrorMessage to validateEven again 
@@ -18,3 +18,4 @@
 - how to aggregate validationresult?
 - how to not validationresult?
 - when to add paren around function/type?
+- how to flatten list of list?

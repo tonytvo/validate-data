@@ -33,6 +33,8 @@ let validateZero number =
 let (<|>) f g = (fun x -> orCombine (f(x)) (g(x)))
 let validatePositiveOrZero = validatePositive <|> validateZero
 
+let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
+
 [<TestFixture>]
 type ``test validating zero`` () =
     
@@ -136,3 +138,16 @@ type ``test validating positive number or zero`` () =
     [<Test>]  
     member _.``given negative number should return false with multiple error messages``() =
         validatePositiveOrZero(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"; "-3 is not zero"])
+
+[<TestFixture>]
+type ``test validating even and positive or zero`` () =
+    
+    [<Test>]  
+    member _.``given zero, 2, 4 should return valid result``() =
+        validateEvenAndPositiveOrZero(0) |> should equal createValidResult
+        validateEvenAndPositiveOrZero(2) |> should equal createValidResult
+        validateEvenAndPositiveOrZero(4) |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given -2 number should return invalid results with multiple error messages``() =
+        validateEvenAndPositiveOrZero(-2) |> should equal (MultipleInvalidResults ["-2 is not positive number"; "-2 is not zero"])

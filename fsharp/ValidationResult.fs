@@ -20,5 +20,6 @@ module ValidationResult
 
     let errorMessageFromSingleInvalidResult result =
         match result with
-        | SingleInvalidResult result -> result
+        | SingleInvalidResult result -> [result]
+        | MultipleInvalidResults results -> results
         | _ -> failwith "todo"
