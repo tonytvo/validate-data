@@ -23,7 +23,7 @@ let isOdd number = not <| isEven(number)
 let validateOdd number =
     createValidationResultOnPredicate (isOdd(number)) $"{number} is not odd number"
 let (<&>) f g = (fun x -> andCombine (f(x)) (g(x)))
-let validateOddAndPositiveWithErrorMessage = validateOdd <&> validatePositive
+let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative number = andCombine (validateEven(number)) (validateNegative(number))
 
 [<TestFixture>]
@@ -94,12 +94,12 @@ type ``test validating odd positive number`` () =
     
     [<Test>]  
     member _.``given odd and positive number should return true``() =
-        validateOddAndPositiveWithErrorMessage(3) |> should equal createValidResult
+        validateOddAndPositive(3) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateOddAndPositiveWithErrorMessage(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"])
+        validateOddAndPositive(-3) |> should equal (MultipleInvalidResults ["-3 is not positive number"])
 
     [<Test>]  
     member _.``given even and negative number should return false``() =
-        validateOddAndPositiveWithErrorMessage(-4) |> should equal (MultipleInvalidResults ["-4 is not odd number"; "-4 is not positive number"])
+        validateOddAndPositive(-4) |> should equal (MultipleInvalidResults ["-4 is not odd number"; "-4 is not positive number"])
