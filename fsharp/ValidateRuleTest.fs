@@ -44,7 +44,7 @@ type ``test validating zero`` () =
 
     [<Test>]  
     member _.``given non-zero number should invalid result with error message``() =
-        validateZero(3) |> should equal (SingleInvalidResult "3 is not zero")
+        validateZero(3) |> should equal (MultipleInvalidResults ["3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even number`` () =
@@ -55,7 +55,7 @@ type ``test validating even number`` () =
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
-        validateEven(3) |> should equal (SingleInvalidResult "3 is not even number")
+        validateEven(3) |> should equal (MultipleInvalidResults ["3 is not even number"])
 
 [<TestFixture>]
 type ``test validating odd number`` () =
@@ -66,7 +66,7 @@ type ``test validating odd number`` () =
         
     [<Test>]  
     member _.``given even number should return false``() =
-        validateOdd(2) |> should equal (SingleInvalidResult "2 is not odd number")
+        validateOdd(2) |> should equal (MultipleInvalidResults ["2 is not odd number"])
 
 [<TestFixture>]
 type ``test validating positive number`` () =
@@ -77,7 +77,7 @@ type ``test validating positive number`` () =
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositive(-2) |> should equal (SingleInvalidResult "-2 is not positive number")
+        validatePositive(-2) |> should equal (MultipleInvalidResults ["-2 is not positive number"])
 
 [<TestFixture>]
 type ``test validating negative number`` () =
@@ -88,7 +88,7 @@ type ``test validating negative number`` () =
 
     [<Test>]  
     member _.``given non-negative number should return false with error message``() =
-        validateNegative(3) |> should equal (SingleInvalidResult "3 is not negative number")
+        validateNegative(3) |> should equal (MultipleInvalidResults ["3 is not negative number"])
 
 [<TestFixture>]
 type ``test validating even negative number`` () =
