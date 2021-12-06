@@ -26,6 +26,22 @@ let (<&>) f g = (fun x -> andCombine (f(x)) (g(x)))
 let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
 
+let isZero number = number = 0
+let validateZero number =
+    createValidationResultOnPredicate (isZero(number)) $"{number} is not zero"
+//let validatePositiveOrZero = orCombine (validatePositive(number)) (validateZero(number))
+
+[<TestFixture>]
+type ``test validating zero`` () =
+    
+    [<Test>]  
+    member _.``given zero should return valid result``() =
+        validateZero(0) |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given non-zero number should invalid result with error message``() =
+        validateZero(3) |> should equal (SingleInvalidResult "3 is not zero")
+
 [<TestFixture>]
 type ``test validating even number`` () =
     
