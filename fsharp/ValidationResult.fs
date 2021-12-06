@@ -29,4 +29,6 @@ module ValidationResult
         InvalidResult errorMessages
 
     let createValidationResultFromMultipleValidationResults isValid validationResult1 validationResult2 =
-        if (isValid) then createValidResult else aggregateErrors validationResult1 validationResult2
+        if isValid
+        then createValidResult
+        else aggregateErrors validationResult1 validationResult2

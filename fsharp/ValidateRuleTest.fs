@@ -73,7 +73,7 @@ type ``test validating positive number`` () =
     
     [<Test>]  
     member _.``given positive number should return true``() =
-        validatePositive(3) |> should equal (createValidResult)
+        validatePositive(3) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
