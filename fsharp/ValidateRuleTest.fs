@@ -26,17 +26,17 @@ let validateOdd numberInput =
     createValidationResultOnPredicate (isOdd (numberValue numberInput)) $"{numberValue numberInput} is not odd number"
 
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
-let validateOddAndPositive number = andCombine (validateOdd number) (validatePositive number)
-let validateEvenAndNegative number = andCombine (validateEven number) (validateNegative number)
+let validateOddAndPositive = validateOdd <&> validatePositive
+let validateEvenAndNegative = validateEven <&> validateNegative
 
 let isZero number = number = 0
 let validateZero numberInput =
     createValidationResultOnPredicate (isZero (numberValue numberInput)) $"{ (numberValue numberInput) } is not zero"
 
 let (<|>) f g = (fun x -> orCombine (f x) (g x))
-let validatePositiveOrZero number = orCombine (validatePositive number) (validateZero number)
+let validatePositiveOrZero = validatePositive <|> validateZero
 
-let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven number) (validatePositive number)) (validateZero number)
+let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
