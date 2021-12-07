@@ -7,6 +7,7 @@
 - ~~remove duplication before it's too much~~
 - write validations for strings or some data type. Start from single condition, then combine two conditions, then try to build bigger combinations of coditions.
 - ~~rename validateEvenWithErrorMessage to validateEven again~~ 
+- extract ValidationInput interface
 
 ## Hints
 - ~~when you're factoring, think about the composite design pattern or the specification pattern~~

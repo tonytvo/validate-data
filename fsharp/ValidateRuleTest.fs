@@ -9,8 +9,11 @@ open ValidationInput
 
 let isEven number = number % 2 = 0
 
+let validateEvenInput numberInput =
+    createValidationResultOnPredicate (isEven (numberValue numberInput)) $"{numberValue numberInput} is not even number"
+
 let validateEven number =
-    createValidationResultOnPredicate (isEven number) $"{number} is not even number"
+    validateEvenInput (createInputFromNumber number)
 
 let isPositive number = number >= 0 
 
