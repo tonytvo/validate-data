@@ -1,5 +1,6 @@
 module ValidateRule.UnitTest
 
+open System
 open NUnit.Framework
 open FsUnit
 open ValidationResult
@@ -34,6 +35,26 @@ let (<|>) f g = (fun x -> orCombine (f(x)) (g(x)))
 let validatePositiveOrZero = validatePositive <|> validateZero
 
 let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
+
+let isEmpty str = str <> null && String.IsNullOrEmpty str 
+let validateEmpty str =
+    createValidationResultOnPredicate (isEmpty(str)) $"{str} is not empty"
+
+[<TestFixture>]
+type ``test empty string`` () =
+    
+    [<Test>]  
+    member _.``given empty string should return valid result``() =
+        validateEmpty("") |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given non-empty string should invalid result with error message``() =
+        validateEmpty("a") |> should equal (InvalidResult ["a is not empty"])
+
+    [<Test>]  
+    member _.``given null string should invalid result with error message``() =
+        validateEmpty(null) |> should equal (InvalidResult [" is not empty"])
+
 
 [<TestFixture>]
 type ``test validating zero`` () =
