@@ -29,13 +29,13 @@ let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
 
 let isZero number = number = 0
-let validateZeroInput numberInput =
+let validateZero numberInput =
     createValidationResultOnPredicate (isZero (numberValue numberInput)) $"{ (numberValue numberInput) } is not zero"
 
 let (<|>) f g = (fun x -> orCombine (f x) (g x))
-let validatePositiveOrZero number = orCombine (validatePositive number) (validateZeroInput (createInputFromNumber number))
+let validatePositiveOrZero number = orCombine (validatePositive number) (validateZero (createInputFromNumber number))
 
-let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven number) (validatePositive number)) (validateZeroInput (createInputFromNumber number))
+let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven number) (validatePositive number)) (validateZero (createInputFromNumber number))
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
@@ -77,11 +77,11 @@ type ``test validating zero`` () =
     
     [<Test>]  
     member _.``given zero should return valid result``() =
-        validateZeroInput (createInputFromNumber 0) |> should equal createValidResult
+        validateZero (createInputFromNumber 0) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-zero number should invalid result with error message``() =
-        validateZeroInput (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not zero"])
+        validateZero (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even number`` () =
