@@ -10,21 +10,21 @@ open ValidationInput
 let isEven number = number % 2 = 0
 
 let validateEven number =
-    createValidationResultOnPredicate (isEven(number)) $"{number} is not even number"
+    createValidationResultOnPredicate (isEven number) $"{number} is not even number"
 
 let isPositive number = number >= 0 
 
 let validatePositive number =
-    createValidationResultOnPredicate (isPositive(number)) $"{number} is not positive number"
+    createValidationResultOnPredicate (isPositive number) $"{number} is not positive number"
 
 let isNegative number = not <| isPositive number
 let validateNegative number =
-    createValidationResultOnPredicate (isNegative(number)) $"{number} is not negative number"
+    createValidationResultOnPredicate (isNegative number) $"{number} is not negative number"
     
 let isOdd number = not <| isEven(number)
 let validateOdd number =
-    createValidationResultOnPredicate (isOdd(number)) $"{number} is not odd number"
-let (<&>) f g = (fun x -> andCombine (f(x)) (g(x)))
+    createValidationResultOnPredicate (isOdd number) $"{number} is not odd number"
+let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
 
@@ -35,17 +35,17 @@ let validateZeroInput numberInput =
 let validateZero number =
     validateZeroInput (createInputFromNumber(number))
 
-let (<|>) f g = (fun x -> orCombine (f(x)) (g(x)))
-let validatePositiveOrZero = validatePositive <|> validateZero
+let (<|>) f g = (fun x -> orCombine (f x) (g x))
+let validatePositiveOrZero number = orCombine (validatePositive number) (validateZero number)
 
-let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
+let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven number) (validatePositive number)) (validateZero number)
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
-    createValidationResultOnPredicate (isEmpty(str)) $"{str} is not empty"
+    createValidationResultOnPredicate (isEmpty str) $"{str} is not empty"
 let isAtLeast5Characters str = String.length str >= 5
 let validateAtLeast5Characters str =
-    createValidationResultOnPredicate (isAtLeast5Characters(str)) $"{str} is not at least 5 characters"
+    createValidationResultOnPredicate (isAtLeast5Characters str) $"{str} is not at least 5 characters"
 
 [<TestFixture>]
 type ``test at least 5 characters string`` () =
