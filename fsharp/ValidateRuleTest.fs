@@ -39,22 +39,22 @@ let validatePositiveOrZero = validatePositive <|> validateZero
 let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
-let validateEmpty str =
-    createValidationResultOnPredicate (isEmpty str) $"{str} is not empty"
+let validateEmpty strInput =
+    createValidationResultOnPredicate (isEmpty (stringValue strInput)) $"{stringValue strInput} is not empty"
 let isAtLeast5Characters str = String.length str >= 5
-let validateAtLeast5Characters str =
-    createValidationResultOnPredicate (isAtLeast5Characters str) $"{str} is not at least 5 characters"
+let validateAtLeast5Characters strInput =
+    createValidationResultOnPredicate (isAtLeast5Characters (stringValue strInput)) $"{stringValue strInput} is not at least 5 characters"
 
 [<TestFixture>]
 type ``test at least 5 characters string`` () =
     
     [<Test>]  
     member _.``given string of 5 character should return valid result``() =
-        validateAtLeast5Characters("kajkj") |> should equal createValidResult
+        validateAtLeast5Characters(createInputFromString "kajkj") |> should equal createValidResult
 
     [<Test>]  
     member _.``given empty string should invalid result with error message``() =
-        validateAtLeast5Characters("a") |> should equal (InvalidResult ["a is not at least 5 characters"])
+        validateAtLeast5Characters(createInputFromString "a") |> should equal (InvalidResult ["a is not at least 5 characters"])
 
 
 [<TestFixture>]
@@ -62,15 +62,15 @@ type ``test empty string`` () =
     
     [<Test>]  
     member _.``given empty string should return valid result``() =
-        validateEmpty("") |> should equal createValidResult
+        validateEmpty(createInputFromString "") |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-empty string should invalid result with error message``() =
-        validateEmpty("a") |> should equal (InvalidResult ["a is not empty"])
+        validateEmpty(createInputFromString "a") |> should equal (InvalidResult ["a is not empty"])
 
     [<Test>]  
     member _.``given null string should invalid result with error message``() =
-        validateEmpty(null) |> should equal (InvalidResult [" is not empty"])
+        validateEmpty(createInputFromString null) |> should equal (InvalidResult [" is not empty"])
 
 
 [<TestFixture>]
