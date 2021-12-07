@@ -14,16 +14,24 @@ let validateEven numberInput =
 
 let isPositive number = number >= 0 
 
+let validatePositiveInput numberInput =
+    createValidationResultOnPredicate (isPositive (numberValue numberInput)) $"{numberValue numberInput} is not positive number"
+
 let validatePositive number =
-    createValidationResultOnPredicate (isPositive number) $"{number} is not positive number"
+    validatePositiveInput (createInputFromNumber number)
 
 let isNegative number = not <| isPositive number
+let validateNegativeInput numberInput =
+    createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{numberValue numberInput} is not negative number"
 let validateNegative number =
-    createValidationResultOnPredicate (isNegative number) $"{number} is not negative number"
+    let inputFromNumber = createInputFromNumber number
+    createValidationResultOnPredicate (isNegative (numberValue inputFromNumber)) $"{numberValue inputFromNumber} is not negative number"
     
 let isOdd number = not <| isEven(number)
+let validateOddInput numberInput =
+    createValidationResultOnPredicate (isOdd (numberValue numberInput)) $"{numberValue numberInput} is not odd number"
 let validateOdd number =
-    createValidationResultOnPredicate (isOdd number) $"{number} is not odd number"
+    createValidationResultOnPredicate (isOdd (numberValue (createInputFromNumber number))) $"{numberValue (createInputFromNumber number) } is not odd number"
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive number = andCombine (validateOdd number) (validatePositive number)
 let validateEvenAndNegative number = andCombine (validateEven (createInputFromNumber number)) (validateNegative number)
