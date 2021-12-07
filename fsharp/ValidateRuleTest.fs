@@ -5,6 +5,7 @@ open NUnit.Framework
 open FsUnit
 open ValidationResult
 open Combinator
+open ValidationInput
 
 let isEven number = number % 2 = 0
 
@@ -28,8 +29,11 @@ let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
 
 let isZero number = number = 0
+let validateZeroInput numberInput =
+    createValidationResultOnPredicate (isZero(numberValue numberInput)) $"{ (numberValue numberInput) } is not zero"
+
 let validateZero number =
-    createValidationResultOnPredicate (isZero(number)) $"{number} is not zero"
+    validateZeroInput (createInputFromNumber(number))
 
 let (<|>) f g = (fun x -> orCombine (f(x)) (g(x)))
 let validatePositiveOrZero = validatePositive <|> validateZero
