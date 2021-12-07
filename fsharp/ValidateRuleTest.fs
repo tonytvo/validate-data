@@ -17,9 +17,6 @@ let isPositive number = number >= 0
 let validatePositiveInput numberInput =
     createValidationResultOnPredicate (isPositive (numberValue numberInput)) $"{numberValue numberInput} is not positive number"
 
-let validatePositive number =
-    validatePositiveInput (createInputFromNumber number)
-
 let isNegative number = not <| isPositive number
 let validateNegativeInput numberInput =
     createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{numberValue numberInput} is not negative number"
@@ -29,7 +26,7 @@ let validateOddInput numberInput =
     createValidationResultOnPredicate (isOdd (numberValue numberInput)) $"{numberValue numberInput} is not odd number"
 
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
-let validateOddAndPositive number = andCombine (validateOddInput (createInputFromNumber number)) (validatePositive number)
+let validateOddAndPositive number = andCombine (validateOddInput (createInputFromNumber number)) (validatePositiveInput (createInputFromNumber number))
 let validateEvenAndNegative number = andCombine (validateEven (createInputFromNumber number)) (validateNegativeInput (createInputFromNumber number))
 
 let isZero number = number = 0
@@ -37,9 +34,9 @@ let validateZero numberInput =
     createValidationResultOnPredicate (isZero (numberValue numberInput)) $"{ (numberValue numberInput) } is not zero"
 
 let (<|>) f g = (fun x -> orCombine (f x) (g x))
-let validatePositiveOrZero number = orCombine (validatePositive number) (validateZero (createInputFromNumber number))
+let validatePositiveOrZero number = orCombine (validatePositiveInput (createInputFromNumber number)) (validateZero (createInputFromNumber number))
 
-let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven (createInputFromNumber number)) (validatePositive number)) (validateZero (createInputFromNumber number))
+let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven (createInputFromNumber number)) (validatePositiveInput (createInputFromNumber number))) (validateZero (createInputFromNumber number))
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
@@ -114,11 +111,11 @@ type ``test validating positive number`` () =
     
     [<Test>]  
     member _.``given positive number should return true``() =
-        validatePositive(3) |> should equal createValidResult
+        validatePositiveInput (createInputFromNumber 3) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositive(-2) |> should equal (InvalidResult ["-2 is not positive number"])
+        validatePositiveInput (createInputFromNumber -2) |> should equal (InvalidResult ["-2 is not positive number"])
 
 [<TestFixture>]
 type ``test validating negative number`` () =
