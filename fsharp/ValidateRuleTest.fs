@@ -78,114 +78,114 @@ type ``test validating zero`` () =
     
     [<Test>]  
     member _.``given zero should return valid result``() =
-        validateZero (createValidationInput 0) |> should equal createValidResult
+        validateZero (createInputFromNumber 0) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-zero number should invalid result with error message``() =
-        validateZero (createValidationInput 3) |> should equal (InvalidResult ["3 is not zero"])
+        validateZero (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even number`` () =
     
     [<Test>]  
     member _.``given even number should return true``() =
-        validateEven (createValidationInput 2) |> should equal createValidResult
+        validateEven (createInputFromNumber 2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
-        validateEven (createValidationInput 3) |> should equal (InvalidResult ["3 is not even number"])
+        validateEven (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not even number"])
 
 [<TestFixture>]
 type ``test validating odd number`` () =
 
     [<Test>]  
     member _.``given odd number should return true``() =
-        validateOdd (createValidationInput 3) |> should equal createValidResult
+        validateOdd (createInputFromNumber 3) |> should equal createValidResult
         
     [<Test>]  
     member _.``given even number should return false``() =
-        validateOdd (createValidationInput 2) |> should equal (InvalidResult ["2 is not odd number"])
+        validateOdd (createInputFromNumber 2) |> should equal (InvalidResult ["2 is not odd number"])
 
 [<TestFixture>]
 type ``test validating positive number`` () =
     
     [<Test>]  
     member _.``given positive number should return true``() =
-        validatePositive (createValidationInput 3) |> should equal createValidResult
+        validatePositive (createInputFromNumber 3) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-positive number should return false``() =
-        validatePositive (createValidationInput -2) |> should equal (InvalidResult ["-2 is not positive number"])
+        validatePositive (createInputFromNumber -2) |> should equal (InvalidResult ["-2 is not positive number"])
 
 [<TestFixture>]
 type ``test validating negative number`` () =
     
     [<Test>]  
     member _.``given negative number should return true``() =
-        validateNegative (createValidationInput -2) |> should equal createValidResult
+        validateNegative (createInputFromNumber -2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-negative number should return false with error message``() =
-        validateNegative (createValidationInput 3) |> should equal (InvalidResult ["3 is not negative number"])
+        validateNegative (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not negative number"])
 
 [<TestFixture>]
 type ``test validating even negative number`` () =
     
     [<Test>]  
     member _.``given even and negative number should return true``() =
-        validateEvenAndNegative(createValidationInput -2) |> should equal createValidResult
+        validateEvenAndNegative(createInputFromNumber -2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateEvenAndNegative(createValidationInput -1) |> should equal (InvalidResult ["-1 is not even number"])
+        validateEvenAndNegative(createInputFromNumber -1) |> should equal (InvalidResult ["-1 is not even number"])
 
     [<Test>]  
     member _.``given even and positive number should return false``() =
-        validateEvenAndNegative(createValidationInput 4) |> should equal (InvalidResult ["4 is not negative number"])
+        validateEvenAndNegative(createInputFromNumber 4) |> should equal (InvalidResult ["4 is not negative number"])
 
     [<Test>]  
     member _.``given odd and positive number should return false with multiple error message``() =
-        validateEvenAndNegative(createValidationInput 5) |> should equal (InvalidResult ["5 is not even number"; "5 is not negative number"])
+        validateEvenAndNegative(createInputFromNumber 5) |> should equal (InvalidResult ["5 is not even number"; "5 is not negative number"])
 
 [<TestFixture>]
 type ``test validating odd positive number`` () =
     
     [<Test>]  
     member _.``given odd and positive number should return true``() =
-        validateOddAndPositive(createValidationInput 3) |> should equal createValidResult
+        validateOddAndPositive(createInputFromNumber 3) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd and negative number should return false``() =
-        validateOddAndPositive(createValidationInput -3) |> should equal (InvalidResult ["-3 is not positive number"])
+        validateOddAndPositive(createInputFromNumber -3) |> should equal (InvalidResult ["-3 is not positive number"])
 
     [<Test>]  
     member _.``given even and negative number should return false``() =
-        validateOddAndPositive(createValidationInput -4) |> should equal (InvalidResult ["-4 is not odd number"; "-4 is not positive number"])
+        validateOddAndPositive(createInputFromNumber -4) |> should equal (InvalidResult ["-4 is not odd number"; "-4 is not positive number"])
 
 [<TestFixture>]
 type ``test validating positive number or zero`` () =
     
     [<Test>]  
     member _.``given zero should return valid result``() =
-        validatePositiveOrZero(createValidationInput 0) |> should equal createValidResult
+        validatePositiveOrZero(createInputFromNumber 0) |> should equal createValidResult
 
     [<Test>]  
     member _.``given positive number should return valid result``() =
-        validatePositiveOrZero(createValidationInput 4) |> should equal createValidResult
+        validatePositiveOrZero(createInputFromNumber 4) |> should equal createValidResult
 
     [<Test>]  
     member _.``given negative number should return false with multiple error messages``() =
-        validatePositiveOrZero(createValidationInput -3) |> should equal (InvalidResult ["-3 is not positive number"; "-3 is not zero"])
+        validatePositiveOrZero(createInputFromNumber -3) |> should equal (InvalidResult ["-3 is not positive number"; "-3 is not zero"])
 
 [<TestFixture>]
 type ``test validating even and positive or zero`` () =
     
     [<Test>]  
     member _.``given zero, 2, 4 should return valid result``() =
-        validateEvenAndPositiveOrZero(createValidationInput 0) |> should equal createValidResult
-        validateEvenAndPositiveOrZero(createValidationInput 2) |> should equal createValidResult
-        validateEvenAndPositiveOrZero(createValidationInput 4) |> should equal createValidResult
+        validateEvenAndPositiveOrZero(createInputFromNumber 0) |> should equal createValidResult
+        validateEvenAndPositiveOrZero(createInputFromNumber 2) |> should equal createValidResult
+        validateEvenAndPositiveOrZero(createInputFromNumber 4) |> should equal createValidResult
 
     [<Test>]  
     member _.``given -2 number should return invalid results with multiple error messages``() =
-        validateEvenAndPositiveOrZero(createValidationInput -2) |> should equal (InvalidResult ["-2 is not positive number"; "-2 is not zero"])
+        validateEvenAndPositiveOrZero(createInputFromNumber -2) |> should equal (InvalidResult ["-2 is not positive number"; "-2 is not zero"])

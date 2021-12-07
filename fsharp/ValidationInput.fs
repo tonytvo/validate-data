@@ -3,7 +3,7 @@ module ValidationInput
         | NumberInput of int
         | StringInput of string
     
-    let createValidationInput number = NumberInput number
+    let createInputFromNumber number = NumberInput number
     let numberValue numberInput =
         match numberInput with
         | NumberInput number -> number
