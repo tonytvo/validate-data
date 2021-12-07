@@ -39,6 +39,21 @@ let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> valida
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
     createValidationResultOnPredicate (isEmpty(str)) $"{str} is not empty"
+let isAtLeast5Characters str = String.length str >= 5
+let validateAtLeast5Characters str =
+    createValidationResultOnPredicate (isAtLeast5Characters(str)) $"{str} is not at least 5 characters"
+
+[<TestFixture>]
+type ``test at least 5 characters string`` () =
+    
+    [<Test>]  
+    member _.``given string of 5 character should return valid result``() =
+        validateAtLeast5Characters("kajkj") |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given empty string should invalid result with error message``() =
+        validateAtLeast5Characters("a") |> should equal (InvalidResult ["a is not at least 5 characters"])
+
 
 [<TestFixture>]
 type ``test empty string`` () =
