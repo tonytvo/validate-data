@@ -5,9 +5,9 @@
   - (hint: this can only fail with 2 reasons, because both conditions must fail, due to "or")
 - ~~implement validateEvenAndPositiveOrZero(). For example: 0, 2, 4 all pass, but 1, 3, 5 all fail. Also, -2 fails (it is even, but it is not positive-or-zero)~~
 - ~~remove duplication before it's too much~~
-- write validations for strings or some data type. Start from single condition, then combine two conditions, then try to build bigger combinations of coditions.
+- ~~write validations for strings or some data type. Start from single condition, then combine two conditions, then try to build bigger combinations of coditions.~~
 - ~~rename validateEvenWithErrorMessage to validateEven again~~ 
-- extract ValidationInput interface
+- ~~extract ValidationInput interface~~
 
 ## Hints
 - ~~when you're factoring, think about the composite design pattern or the specification pattern~~
