@@ -28,8 +28,8 @@ let isOdd number = not <| isEven(number)
 let validateOdd number =
     createValidationResultOnPredicate (isOdd number) $"{number} is not odd number"
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
-let validateOddAndPositive = validateOdd <&> validatePositive
-let validateEvenAndNegative = validateEven <&> validateNegative
+let validateOddAndPositive number = andCombine (validateOdd number) (validatePositive number)
+let validateEvenAndNegative number = andCombine (validateEven number) (validateNegative number)
 
 let isZero number = number = 0
 let validateZero numberInput =
