@@ -45,6 +45,8 @@ let isAtLeast5Characters str = String.length str >= 5
 let validateAtLeast5Characters strInput =
     createValidationResultOnPredicate (isAtLeast5Characters (stringValue strInput)) $"{stringValue strInput} is not at least 5 characters"
 
+let validateEmptyOrAtLeast5Characters = validateEmpty <|> validateAtLeast5Characters 
+
 [<TestFixture>]
 type ``test at least 5 characters string`` () =
     
@@ -71,6 +73,24 @@ type ``test empty string`` () =
     [<Test>]  
     member _.``given null string should invalid result with error message``() =
         validateEmpty(createInputFromString null) |> should equal (InvalidResult [" is not empty"])
+
+type ``test empty or atleast5characters string`` () =
+    
+    [<Test>]  
+    member _.``given empty string should return valid result``() =
+        validateEmptyOrAtLeast5Characters(createInputFromString "") |> should equal createValidResult
+
+    [<Test>]  
+    member _.``given non-empty string should invalid result with error message``() =
+        validateEmptyOrAtLeast5Characters(createInputFromString "a") |> should equal (InvalidResult ["a is not empty"; "a is not at least 5 characters"])
+
+    [<Test>]  
+    member _.``given null string should invalid result with error message``() =
+        validateEmptyOrAtLeast5Characters(createInputFromString null) |> should equal (InvalidResult [" is not empty"; " is not at least 5 characters"])
+
+    [<Test>]  
+    member _.``given more than 5 characters string should invalid result with error message``() =
+        validateEmptyOrAtLeast5Characters(createInputFromString "kjaksj") |> should equal createValidResult
 
 
 [<TestFixture>]
