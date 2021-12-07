@@ -23,18 +23,14 @@ let validatePositive number =
 let isNegative number = not <| isPositive number
 let validateNegativeInput numberInput =
     createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{numberValue numberInput} is not negative number"
-let validateNegative number =
-    let inputFromNumber = createInputFromNumber number
-    createValidationResultOnPredicate (isNegative (numberValue inputFromNumber)) $"{numberValue inputFromNumber} is not negative number"
     
 let isOdd number = not <| isEven(number)
 let validateOddInput numberInput =
     createValidationResultOnPredicate (isOdd (numberValue numberInput)) $"{numberValue numberInput} is not odd number"
-let validateOdd number =
-    createValidationResultOnPredicate (isOdd (numberValue (createInputFromNumber number))) $"{numberValue (createInputFromNumber number) } is not odd number"
+
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
-let validateOddAndPositive number = andCombine (validateOdd number) (validatePositive number)
-let validateEvenAndNegative number = andCombine (validateEven (createInputFromNumber number)) (validateNegative number)
+let validateOddAndPositive number = andCombine (validateOddInput (createInputFromNumber number)) (validatePositive number)
+let validateEvenAndNegative number = andCombine (validateEven (createInputFromNumber number)) (validateNegativeInput (createInputFromNumber number))
 
 let isZero number = number = 0
 let validateZero numberInput =
@@ -107,11 +103,11 @@ type ``test validating odd number`` () =
 
     [<Test>]  
     member _.``given odd number should return true``() =
-        validateOdd(3) |> should equal createValidResult
+        validateOddInput (createInputFromNumber 3) |> should equal createValidResult
         
     [<Test>]  
     member _.``given even number should return false``() =
-        validateOdd(2) |> should equal (InvalidResult ["2 is not odd number"])
+        validateOddInput (createInputFromNumber 2) |> should equal (InvalidResult ["2 is not odd number"])
 
 [<TestFixture>]
 type ``test validating positive number`` () =
@@ -129,11 +125,11 @@ type ``test validating negative number`` () =
     
     [<Test>]  
     member _.``given negative number should return true``() =
-        validateNegative(-2) |> should equal createValidResult
+        validateNegativeInput (createInputFromNumber -2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given non-negative number should return false with error message``() =
-        validateNegative(3) |> should equal (InvalidResult ["3 is not negative number"])
+        validateNegativeInput (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not negative number"])
 
 [<TestFixture>]
 type ``test validating even negative number`` () =
