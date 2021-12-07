@@ -12,9 +12,6 @@ let isEven number = number % 2 = 0
 let validateEvenInput numberInput =
     createValidationResultOnPredicate (isEven (numberValue numberInput)) $"{numberValue numberInput} is not even number"
 
-let validateEven number =
-    validateEvenInput (createInputFromNumber number)
-
 let isPositive number = number >= 0 
 
 let validatePositive number =
@@ -29,7 +26,7 @@ let validateOdd number =
     createValidationResultOnPredicate (isOdd number) $"{number} is not odd number"
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive number = andCombine (validateOdd number) (validatePositive number)
-let validateEvenAndNegative number = andCombine (validateEven number) (validateNegative number)
+let validateEvenAndNegative number = andCombine (validateEvenInput (createInputFromNumber number)) (validateNegative number)
 
 let isZero number = number = 0
 let validateZero numberInput =
@@ -38,7 +35,7 @@ let validateZero numberInput =
 let (<|>) f g = (fun x -> orCombine (f x) (g x))
 let validatePositiveOrZero number = orCombine (validatePositive number) (validateZero (createInputFromNumber number))
 
-let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEven number) (validatePositive number)) (validateZero (createInputFromNumber number))
+let validateEvenAndPositiveOrZero number = orCombine (andCombine (validateEvenInput (createInputFromNumber number)) (validatePositive number)) (validateZero (createInputFromNumber number))
 
 let isEmpty str = str <> null && String.IsNullOrEmpty str 
 let validateEmpty str =
@@ -91,11 +88,11 @@ type ``test validating even number`` () =
     
     [<Test>]  
     member _.``given even number should return true``() =
-        validateEven(2) |> should equal createValidResult
+        validateEvenInput (createInputFromNumber 2) |> should equal createValidResult
 
     [<Test>]  
     member _.``given odd number should return false with error message``() =
-        validateEven(3) |> should equal (InvalidResult ["3 is not even number"])
+        validateEvenInput (createInputFromNumber 3) |> should equal (InvalidResult ["3 is not even number"])
 
 [<TestFixture>]
 type ``test validating odd number`` () =
