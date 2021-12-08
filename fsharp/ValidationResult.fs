@@ -6,11 +6,6 @@ module ValidationResult
     let createValidResult = ValidResult
     let createInvalidResult (errorMessage: string) = InvalidResult [errorMessage] 
     
-    let createValidationResultOnPredicate predicate errorMessage =
-        if predicate
-        then createValidResult
-        else createInvalidResult errorMessage
-
     let createValidationResult input validateInput errorMessageOnInvalidResult =
         if validateInput input
         then createValidResult
