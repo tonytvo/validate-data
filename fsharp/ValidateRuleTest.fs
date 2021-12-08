@@ -19,11 +19,17 @@ let validatePositive numberInput =
 
 let isNegative number = not <| isPositive number
 let validateNegative numberInput =
-    createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{numberValue numberInput} is not negative number"
+    createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{stringValue numberInput} is not negative number"
     
-let isOdd number = not <| isEven(number)
+let isOdd numberInput =
+    let number = numberValue numberInput
+    not <| isEven(number)
+
+let invalidOddNumberErrorMessage numberInput =
+    $"{stringValue numberInput} is not odd number"
+
 let validateOdd numberInput =
-    createValidationResultOnPredicate (isOdd (numberValue numberInput)) $"{numberValue numberInput} is not odd number"
+    createValidationResult numberInput isOdd invalidOddNumberErrorMessage 
 
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive = validateOdd <&> validatePositive

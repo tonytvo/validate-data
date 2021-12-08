@@ -10,6 +10,11 @@ module ValidationResult
         if predicate
         then createValidResult
         else createInvalidResult errorMessage
+
+    let createValidationResult input validateInput errorMessageOnInvalidResult =
+        if validateInput input
+        then createValidResult
+        else createInvalidResult (errorMessageOnInvalidResult input)
     
     let isValid result =
         match result with

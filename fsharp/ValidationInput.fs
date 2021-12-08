@@ -9,7 +9,8 @@ module ValidationInput
         match numberInput with
         | NumberInput number -> number
         | _ -> failwith "todo"
-    let stringValue stringInput =
-        match stringInput with
-        | StringInput input -> input
+    let stringValue validationInput =
+        match validationInput with
+        | StringInput stringInput -> stringInput
+        | NumberInput numberInput -> string numberInput
         | _ -> failwith "todo"
