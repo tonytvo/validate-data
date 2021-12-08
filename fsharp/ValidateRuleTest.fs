@@ -7,10 +7,15 @@ open ValidationResult
 open Combinator
 open ValidationInput
 
-let isEven number = number % 2 = 0
+let isEven input =
+    let number = numberValue input
+    number % 2 = 0
+
+let invalidEvenNumberErrorMessage input =
+    $"{stringValue input} is not even number"
 
 let validateEven numberInput =
-    createValidationResultOnPredicate (isEven (numberValue numberInput)) $"{numberValue numberInput} is not even number"
+    createValidationResult numberInput isEven invalidEvenNumberErrorMessage
 
 let isPositive number = number >= 0 
 
@@ -22,14 +27,13 @@ let validateNegative numberInput =
     createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{stringValue numberInput} is not negative number"
     
 let isOdd input =
-    let number = numberValue input
-    not <| isEven(number)
+    not <| isEven(input)
 
 let invalidOddNumberErrorMessage numberInput =
     $"{stringValue numberInput} is not odd number"
 
-let validateOdd numberInput =
-    createValidationResult numberInput isOdd invalidOddNumberErrorMessage 
+let validateOdd input =
+    createValidationResult input isOdd invalidOddNumberErrorMessage 
 
 let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive = validateOdd <&> validatePositive
