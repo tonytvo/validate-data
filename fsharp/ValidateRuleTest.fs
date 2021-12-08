@@ -17,14 +17,22 @@ let invalidEvenNumberErrorMessage input =
 let validateEven numberInput =
     createValidationResult numberInput isEven invalidEvenNumberErrorMessage
 
-let isPositive number = number >= 0 
+let isPositive input =
+    let number = numberValue input
+    number >= 0 
 
-let validatePositive numberInput =
-    createValidationResultOnPredicate (isPositive (numberValue numberInput)) $"{numberValue numberInput} is not positive number"
+let invalidPositiveNumberErrorMessage input =
+    $"{stringValue input} is not positive number"
+    
+let validatePositive input =
+    createValidationResult input isPositive invalidPositiveNumberErrorMessage
 
-let isNegative number = not <| isPositive number
-let validateNegative numberInput =
-    createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{stringValue numberInput} is not negative number"
+let isNegative input = not <| isPositive input
+let invalidNegativeNumberErrorMessage input =
+    $"{stringValue input} is not negative number"
+
+let validateNegative input =
+    createValidationResult input isNegative invalidNegativeNumberErrorMessage
     
 let isOdd input =
     not <| isEven(input)
