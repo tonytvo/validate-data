@@ -47,21 +47,36 @@ let (<&>) f g = (fun x -> andCombine (f x) (g x))
 let validateOddAndPositive = validateOdd <&> validatePositive
 let validateEvenAndNegative = validateEven <&> validateNegative
 
-let isZero number = number = 0
-let validateZero numberInput =
-    createValidationResultOnPredicate (isZero (numberValue numberInput)) $"{ (numberValue numberInput) } is not zero"
+let isZero input =
+    let number = numberValue input
+    number = 0
+
+let invalidZeroNumberErrorMessage numberInput =
+    $"{ (stringValue numberInput) } is not zero"
+   
+let validateZero input =
+    createValidationResult input isZero invalidZeroNumberErrorMessage 
 
 let (<|>) f g = (fun x -> orCombine (f x) (g x))
 let validatePositiveOrZero = validatePositive <|> validateZero
 
 let validateEvenAndPositiveOrZero = validateEven <&> validatePositive <|> validateZero
 
-let isEmpty str = str <> null && String.IsNullOrEmpty str 
-let validateEmpty strInput =
-    createValidationResultOnPredicate (isEmpty (stringValue strInput)) $"{stringValue strInput} is not empty"
-let isAtLeast5Characters str = String.length str >= 5
-let validateAtLeast5Characters strInput =
-    createValidationResultOnPredicate (isAtLeast5Characters (stringValue strInput)) $"{stringValue strInput} is not at least 5 characters"
+let isEmpty input =
+    let str = stringValue input
+    str <> null && String.IsNullOrEmpty str 
+let invalidEmptyStringErrorMessage input =
+    $"{stringValue input} is not empty"
+let validateEmpty input =
+    createValidationResult input isEmpty invalidEmptyStringErrorMessage
+    
+let isAtLeast5Characters input =
+    let str = stringValue input
+    String.length str >= 5
+let invalidAtLeast5CharactersStringErrorMessage input =
+    $"{stringValue input} is not at least 5 characters"
+let validateAtLeast5Characters input =
+    createValidationResult input isAtLeast5Characters invalidAtLeast5CharactersStringErrorMessage
 
 let validateEmptyOrAtLeast5Characters = validateEmpty <|> validateAtLeast5Characters 
 
