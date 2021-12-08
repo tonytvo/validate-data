@@ -21,8 +21,8 @@ let isNegative number = not <| isPositive number
 let validateNegative numberInput =
     createValidationResultOnPredicate (isNegative (numberValue numberInput)) $"{stringValue numberInput} is not negative number"
     
-let isOdd numberInput =
-    let number = numberValue numberInput
+let isOdd input =
+    let number = numberValue input
     not <| isEven(number)
 
 let invalidOddNumberErrorMessage numberInput =
