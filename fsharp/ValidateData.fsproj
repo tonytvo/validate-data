@@ -6,8 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Include="helloworld.fs" />
-      <Compile Include="sampletest.fs" />
+      <Compile Include="ValidationResult.fs" />
+      <Compile Include="ValidationInput.fs" />
+      <Compile Include="Combinator.fs" />
+      <Compile Include="ValidateRuleTest.fs" />
+      <Content Include="todo.md" />
     </ItemGroup>
 
     <ItemGroup>
